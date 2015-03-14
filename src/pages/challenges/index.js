@@ -1,5 +1,8 @@
 'use strict';
 var React = require('react');
+var {
+  Link
+} = require('react-router');
 var challengesStore = require('../../stores/challenges');
 
 var Challenges = React.createClass({
@@ -13,7 +16,7 @@ var Challenges = React.createClass({
         });
       })
       .catch(function (error) {
-        alert(error);
+        console.log(error);
       });
     return {
       challenges: []
@@ -22,7 +25,9 @@ var Challenges = React.createClass({
   render() {
     function renderItem(item) {
       return (
-        <li>{item}</li>
+        <li>
+          <Link to="challenge" params={{id: item._id}}>{item.summary}</Link>
+        </li>
       );
     }
     return (
