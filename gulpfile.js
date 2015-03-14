@@ -99,7 +99,7 @@ gulp.task('serve', shell.task('node server.js'));
 
 gulp.task('build', ['clean'], function (cb) {
   runSequence(
-    'jest',
+    //'jest',
     'browserify',
     'uglify',
     'banner',
