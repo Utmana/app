@@ -1,8 +1,4 @@
 'use strict';
-// jest.dontMock(process.cwd() + '/src/stores/challenges');
-// jest.dontMock('events');
-// jest.dontMock('object-assign');
-// jest.dontMock('core-js');
 
 describe('/stores/Challenges', function () {
   var Challenges;

@@ -1,8 +1,8 @@
 {
-  "name": "utmana-app",
+  "name": "utmana",
   "version": "0.1.0",
-  "description": "I am learning React",
-  "main": "dist/utmana-app.js",
+  "description": "Our entry app for Hack For Sweden",
+  "main": "dist/utmana.js",
   "scripts": {
     "test": "jest"
   },
