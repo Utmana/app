@@ -1,3 +1,4 @@
+'use strict';
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var react = require('gulp-react');
@@ -11,7 +12,6 @@ var runSequence = require('run-sequence');
 var stylish = require('jshint-stylish');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var reactify = require('reactify');
 var pkg = require('./package');
 var jshintConfig = pkg.jshintConfig;
 
@@ -30,18 +30,18 @@ var PATH = {
   DIST: './dist/'
 };
 
-var handleErr = function(err) {
+var handleErr = function (err) {
   console.error('ERROR' + (err.fileName ? ' in ' + err.fileName : ':'));
   console.error(err.message);
   this.end();
 };
 
-gulp.task('clean', function(cb) {
+gulp.task('clean', function (cb) {
   del([PATH.DIST], cb);
 });
 
 jshintConfig.lookup = false;
-gulp.task('jshint', function() {
+gulp.task('jshint', function () {
   var stream = gulp.src(PATH.SOURCE + '*.js')
     .pipe(cache('jshint'))
     .pipe(react()).on('error', handleErr)
@@ -55,12 +55,12 @@ gulp.task('jshint', function() {
   return stream;
 });
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
   var b = browserify();
   b.transform('reactify', {
     es6: true
   });
-  b.add(PATH.SOURCE + 'index.js');
+  b.add(PATH.SOURCE + 'app.js');
   b.ignore('react');
   b.external(['react', 'react/addons']);
 
@@ -69,7 +69,7 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(PATH.DIST));
 });
 
-gulp.task('uglify', function() {
+gulp.task('uglify', function () {
   return gulp.src(PATH.DIST + '*.js')
     .pipe(uglify()).on('error', handleErr)
     .pipe(rename({
@@ -79,7 +79,7 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest(PATH.DIST));
 });
 
-gulp.task('banner', function() {
+gulp.task('banner', function () {
   return gulp.src(PATH.DIST + '*.js')
     .pipe(header(BANNER, {
       pkg: pkg
@@ -87,15 +87,16 @@ gulp.task('banner', function() {
     .pipe(gulp.dest(PATH.DIST));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch(PATH.SOURCE + '*.js', ['jshint']);
   gulp.watch(PATH.TEST + '*', ['test']);
 });
 
 gulp.task('test', shell.task('node --harmony ./node_modules/.bin/jest'));
+
 gulp.task('serve', shell.task('node server.js'));
 
-gulp.task('build', ['clean'], function(cb) {
+gulp.task('build', ['clean'], function (cb) {
   runSequence(
     'test',
     'browserify',
