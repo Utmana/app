@@ -23,6 +23,10 @@ var ChallengesStore = assign({}, EventEmitter.prototype, {
         });
     });
   },
+  /**
+   * Get the list of challenges
+   * @return {Object} [description]
+   */
   getList() {
     return new Promise(function executor(resolve, reject) {
       request
