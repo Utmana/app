@@ -16,7 +16,7 @@ var Challenges = React.createClass({
         });
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
     return {
       challenges: []
@@ -25,7 +25,7 @@ var Challenges = React.createClass({
   render() {
     function renderItem(item) {
       return (
-        <li>
+        <li key={item._id}>
           <Link to="challenge" params={{id: item._id}}>{item.summary}</Link>
         </li>
       );

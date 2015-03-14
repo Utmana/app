@@ -28,13 +28,37 @@ var challenge = React.createClass({
         alert(error);
       });
     return {
-      challenge: {}
+      challenge: {
+        id: 1337
+      }
     };
   },
   accept() {
+    var id = this.state.challenge._id;
+    var _this = this;
 
+    challengesStore
+      .accept(id)
+      .then(function (result) {
+        _this.transitionTo('challenges');
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   },
-  next() {},
+  decline() {
+    var id = this.state.challenge._id;
+    var _this = this;
+
+    challengesStore
+      .decline(id)
+      .then(function (result) {
+        _this.transitionTo('challenges');
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  },
   render() {
     return (
       <Modal title="Challenge"
@@ -47,7 +71,7 @@ var challenge = React.createClass({
         </div>
         <div className="modal-footer">
           <Button onClick={this.accept}>Accept</Button>
-          <Button onClick={this.next}>Next</Button>
+          <Button onClick={this.decline}>Decline</Button>
         </div>
       </Modal>
     );
