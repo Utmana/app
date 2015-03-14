@@ -29,7 +29,6 @@ var ChallengesStore = assign({}, EventEmitter.prototype, {
         .get(`${BASE_URL}/challenges`)
         .set('Accept', 'application/json')
         .end(function (err, result) {
-          return resolve(challengesMock);
           if (err) {
             return reject(err);
           }
