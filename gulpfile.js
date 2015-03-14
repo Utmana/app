@@ -25,8 +25,8 @@ var BANNER = [
 ].join('\n');
 
 var PATH = {
-  SOURCE: './src',
-  TEST: './__tests__',
+  SOURCE: './src/',
+  TEST: './__tests__/',
   DIST: './dist/'
 };
 
@@ -88,7 +88,7 @@ gulp.task('banner', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch([PATH.SOURCE + '/**/*.js', PATH.TEST + '/**/*.js'], ['jshint', 'jest']);
+  gulp.watch([PATH.SOURCE + '**/*.js', PATH.TEST + '**/*.js'], ['jshint', 'jest']);
 });
 
 gulp.task('jest', shell.task('node --harmony ./node_modules/.bin/jest'));
@@ -99,7 +99,7 @@ gulp.task('serve', shell.task('node server.js'));
 
 gulp.task('build', ['clean'], function (cb) {
   runSequence(
-    'test',
+    'jest',
     'browserify',
     'uglify',
     'banner',

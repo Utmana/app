@@ -15,3 +15,7 @@
 #### Run tests
 
       gulp test
+
+#### Build the app
+
+      gulp build
