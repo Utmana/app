@@ -3,23 +3,22 @@ var React = require('react');
 var challengesStore = require('../../stores/challenges');
 
 var Challenges = React.createClass({
-  componentDidMount() {
-    challengesStore
+  getInitialState() {
+    var _this = this;
+    return challengesStore
       .getList()
       .then(function (results) {
-        this.setState({
+        _this.setState({
           challenges: results
         });
       })
       .catch(function (error) {
-
+        alert(error);
       });
   },
   render() {
     return (
-      <div>
-
-      </div>
+      <ul>{this.state.challenges}</ul>
     );
   }
 });
