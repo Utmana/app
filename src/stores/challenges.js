@@ -1,6 +1,5 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var request = require('../services/request');
@@ -37,7 +36,7 @@ var ChallengesStore = assign({}, EventEmitter.prototype, {
    * @param  {String} id - The id of the challenge
    * @return {Object}    - A promise
    */
-  decline(id) {
+  decline() {
 
   }
 });
