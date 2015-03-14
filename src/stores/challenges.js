@@ -4,8 +4,6 @@ var AppDispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var request = require('../services/request');
-var core = require('core-js');
-var challengesMock = require('../mocks/challenges').challenges;
 var {
   BASE_URL
 } = require('../constants/config');
