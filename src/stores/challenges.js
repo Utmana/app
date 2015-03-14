@@ -3,24 +3,39 @@
 var AppDispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-require('core-js');
-
-var challenges = [{
-  id: 1,
-  name: 'test'
-}, {
-  id: 1337,
-  foo: 'bar'
-}];
+var request = require('superagent');
+var core = require('core-js');
+var {
+  BASE_URL
+} = require('../constants/config');
 
 var ChallengesStore = assign({}, EventEmitter.prototype, {
   get(id) {
-    return challenges.find(element => element.id === id);
+    return new Promise(function executor(resolve, reject) {
+      request
+        .get(`${BASE_URL}/challenges${id}`)
+        .set('Accept', 'application/json')
+        .end(function (err, result) {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        });
+    });
   },
-  getList() {},
-  create() {}
+  getList() {
+    return new Promise(function executor(resolve, reject) {
+      request
+        .get(`${BASE_URL}/challenges`)
+        .set('Accept', 'application/json')
+        .end(function (err, res) {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        });
+    });
+  }
 });
-
-AppDispatcher.register(function (action) {});
 
 module.exports = ChallengesStore;

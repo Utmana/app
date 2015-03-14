@@ -44,7 +44,8 @@
     "react-bootstrap": "^0.16.1",
     "flux": "^2.0.1",
     "object-assign": "^2.0.0",
-    "core-js": "^0.7.2"
+    "core-js": "^0.7.2",
+    "superagent": "^1.1.0"
   },
   "devDependencies": {
     "browserify": "^8.1.3",
