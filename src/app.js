@@ -6,6 +6,7 @@ var Header = require('./components/header');
 var About = require('./pages/about');
 var Login = require('./pages/login');
 var User = require('./pages/user');
+var Challenges = require('./pages/challenges');
 
 var { Route, RouteHandler, DefaultRoute } = Router;
 
@@ -23,6 +24,8 @@ var App = React.createClass({
 var routes = (
   <Route path="/" handler={App}>
     <Route name="challenges" handler={Challenges}/>
+    <Route name="user" handler={User}/>
+    <Route name="login" handler={Login}/>
     <DefaultRoute handler={About}/>
   </Route>
   );

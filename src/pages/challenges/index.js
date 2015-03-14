@@ -1,14 +1,27 @@
 'use strict';
 var React = require('react');
+var challengesStore = require('../../stores/challenges');
 
-var index = React.createClass({
+var Challenges = React.createClass({
+  componentDidMount() {
+    challengesStore
+      .getList()
+      .then(function (results) {
+        this.setState({
+          challenges: results
+        });
+      })
+      .catch(function (error) {
 
-  render: function() {
+      });
+  },
+  render() {
     return (
-      <div />
+      <div>
+
+      </div>
     );
   }
-
 });
 
-module.exports = index;
+module.exports = Challenges;

@@ -16,7 +16,7 @@ var Header = React.createClass({
     return (
       <Navbar>
           <Link to="user">{this.state.email}</Link>
-          <a href="#/about">About</a>
+          <a href="#/challenges">Challenges</a>
           <a href="#/login">Login</a>
       </Navbar>
     );

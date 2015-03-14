@@ -4,7 +4,7 @@ var AppDispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var request = require('superagent');
-var core = require('core-js');
+var challengesMock = require('../mocks/challenges').challenges;
 var {
   BASE_URL
 } = require('../constants/config');
@@ -28,7 +28,8 @@ var ChallengesStore = assign({}, EventEmitter.prototype, {
       request
         .get(`${BASE_URL}/challenges`)
         .set('Accept', 'application/json')
-        .end(function (err, res) {
+        .end(function (err, result) {
+          return resolve(challengesMock);
           if (err) {
             return reject(err);
           }
