@@ -1,6 +1,3 @@
-FROM tutum.co/iteamdev/utmana-base
-ADD . /app
-WORKDIR /app
-RUN npm install
-EXPOSE 8080
-CMD gulp serve
+FROM nginx
+EXPOSE 80
+ADD ./dist /usr/share/nginx/html
