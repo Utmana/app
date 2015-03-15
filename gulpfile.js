@@ -11,8 +11,8 @@ var htmlReplace = require('gulp-html-replace');
 var del = require('del');
 var runSequence = require('run-sequence');
 var stylish = require('jshint-stylish');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
+var webpack = require('gulp-webpack');
+var webpackConfig = require('./webpack.config');
 var pkg = require('./package');
 var jshintConfig = pkg.jshintConfig;
 
@@ -57,17 +57,12 @@ gulp.task('jshint', function () {
   return stream;
 });
 
-gulp.task('browserify', function () {
-  var b = browserify();
-  b.transform('reactify', {
-    es6: true
-  });
-  b.add(PATH.SOURCE + 'app.js');
-  b.ignore('react');
-  b.external(['react', 'react/addons']);
-
-  return b.bundle()
-    .pipe(source(pkg.name + '.js'))
+gulp.task('webpack', function () {
+  return gulp.src(PATH.SOURCE + 'app.js')
+    .pipe(webpack(webpackConfig))
+    .pipe(rename({
+      basename: pkg.name
+    }))
     .pipe(gulp.dest(PATH.DIST));
 });
 
@@ -110,7 +105,7 @@ gulp.task('serve', shell.task('node server.js'));
 gulp.task('build', ['clean'], function (cb) {
   runSequence(
     // 'jest',
-    'browserify',
+    'webpack',
     'uglify',
     'banner',
     'replaceHTML',
