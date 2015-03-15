@@ -7,6 +7,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
 var shell = require('gulp-shell');
+var htmlReplace = require('gulp-html-replace');
 var del = require('del');
 var runSequence = require('run-sequence');
 var stylish = require('jshint-stylish');
@@ -25,6 +26,7 @@ var BANNER = [
 ].join('\n');
 
 var PATH = {
+  HTML: './index.html',
   SOURCE: './src/',
   TEST: './__tests__/',
   DIST: './dist/'
@@ -79,6 +81,14 @@ gulp.task('uglify', function () {
     .pipe(gulp.dest(PATH.DIST));
 });
 
+gulp.task('replaceHTML', function () {
+  gulp.src(PATH.HTML)
+    .pipe(htmlReplace({
+      js: pkg.name + '.min.js'
+    }))
+    .pipe(gulp.dest(PATH.DIST));
+});
+
 gulp.task('banner', function () {
   return gulp.src(PATH.DIST + '*.js')
     .pipe(header(BANNER, {
@@ -99,10 +109,11 @@ gulp.task('serve', shell.task('node server.js'));
 
 gulp.task('build', ['clean'], function (cb) {
   runSequence(
-    //'jest',
+    // 'jest',
     'browserify',
     'uglify',
     'banner',
+    'replaceHTML',
     cb);
 });
 
