@@ -29,7 +29,7 @@ var ChallengesStore = assign({}, EventEmitter.prototype, {
    * @return {Object}    - A promise
    */
   accept(id) {
-    return request.post(`${BASE_URL}/challenges/${id}/accept`);
+    return request.post(`${BASE_URL}/challenges/${id}/accept`, {});
   },
   /**
    * Decline a challenge
